@@ -1,0 +1,199 @@
+<div class="row">
+
+	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+		
+		<h1>Minhas Tasks</h1>
+		
+		<br />
+		<div class="input-group input-group-md">
+			<input type="text" ng-model="pesquisa" class="form-control input-md"
+				id="search-church"
+				placeholder="Digite o título ou descrição da task que deseja pesquisar...">
+			<div class="input-group-btn">
+
+				<button type="button" class="btn btn-search btn-info">
+					<span class="glyphicon glyphicon-search"></span> <span
+						class="label-icon">Pesquisa</span>
+				</button>
+				<div class="btn-group ">
+					<button type="button" class="btn btn-primary dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Opções <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a id="btnCadastro" ng-click="novaTask();" data-target="#editCadModal"
+							data-toggle="modal"> <span class="glyphicon glyphicon-plus"></span>
+								Nova Task
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<br /> <br />
+
+		<table class="table table-striped" ng-init="listarTasks();">
+			<thead>
+				<th>Título</th>
+				<th>Descrição</th>
+				<th>Status</th>
+				<th>Ações</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="t in tasks | filter: pesquisa">
+					<td>{{t.titulo}}</td>
+					<td>{{t.descricao}}</td>
+					<td>
+						<div ng-switch on="t.status">
+							<strong ng-switch-when="A_FAZER" style="font-size: 30px;"
+								class="glyphicon glyphicon-list-alt a-fazer" title="A Fazer"></strong>
+
+							<strong ng-switch-when="EM_DESENVOLVIMENTO"
+								style="font-size: 30px;"
+								class="glyphicon glyphicon-wrench em-desenvolvimento"
+								title="Em Desenvolvimento"></strong> <strong
+								ng-switch-when="STAND_BY" style="font-size: 30px;"
+								class="glyphicon glyphicon-exclamation-sign stand-by"
+								title="Stand-By"></strong> <strong ng-switch-when="CONCLUIDO"
+								style="font-size: 30px;"
+								class="glyphicon glyphicon-check concluido concluir"
+								title="Concluído"></strong>
+						</div>
+					</td>
+
+					<td>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false">
+								<span class="glyphicon glyphicon-th-list"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a ng-click="setTaskEdit(t);" data-target="#editCadModal" data-toggle="modal"><strong
+										 class="glyphicon glyphicon-edit"></strong> Editar</a></li>
+								<li><a ng-click="setTaskDelete(t);" data-toggle="modal" 
+										data-target="#deleteModal"><strong
+										class="glyphicon glyphicon-trash"></strong> Deletar</a></li>
+								<li role="separator" class="divider"></li>
+								
+								<li><a ng-click="alterarStatus(t, 'A_FAZER')"><strong
+										class="glyphicon glyphicon-list-alt a-fazer"></strong> A Fazer</a></li>
+								<li><a ng-click="alterarStatus(t, 'EM_DESENVOLVIMENTO')"><strong
+										class="glyphicon glyphicon-wrench em-desenvolvimento"></strong>
+										Em Desenvolvimento</a></li>
+								<li><a ng-click="alterarStatus(t, 'STAND_BY')"><strong
+										class="glyphicon glyphicon-exclamation-sign stand-by"></strong>
+										Stand-by</a></li>
+								<li><a ng-click="alterarStatus(t, 'CONCLUIDO')"><strong
+										class="glyphicon glyphicon-check concluido concluir"></strong>
+										Concluir</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<div class="modal fade" id="editCadModal" tabindex="-1" role="dialog"
+			aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<h4 class="modal-title custom_align" id="Heading">{{tituloCadEditModal}}</h4>
+					</div>
+					<div class="modal-body">
+
+						<form class="form-horizontal" role="form" name="formCadEditTask">
+							<fieldset>
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="textinput">Códgio</label>
+									<div class="col-sm-2">
+										<input type="number" ng-model="task.id" class="form-control"
+											disabled="disabled">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="titulo">Título</label>
+									<div class="col-sm-10">
+										<input type="text" placeholder="Digite o título da tarefa"
+											ng-model="task.titulo" class="form-control"
+											ng-required="true" ng-trim="true" ng-minlength="3">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label" for="descricao">Descrição</label>
+									<div class="col-sm-10">
+										<textarea rows="6" id="descricao" ng-model="task.descricao"
+											placeholder="Digite a descrição da tarefa" cols="5"
+											ng-required="true" ng-trim="true" class="form-control"
+											ng-minlength="15">
+													</textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<div class="pull-right">
+											<button type="submit" class="btn btn-default"
+												data-dismiss="modal" ng-click="task = {}">Cancelar</button>
+											<button type="submit" data-dismiss="{{fecharModal}}"
+												ng-click="salvarTask(task);"
+												ng-disabled="formCadEditTask.$invalid"
+												class="btn btn-primary">Salvar</button>
+										</div>
+									</div>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		
+		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+			aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<h4 class="modal-title custom_align" id="Heading">Atenção</h4>
+					</div>
+					<div class="modal-body">
+
+						<div class="alert alert-danger">
+							<span class="glyphicon glyphicon-warning-sign"></span> Deseja
+							mesmo deletar a tarefa <strong>{{taskDelecao.titulo}}</strong>?
+						</div>
+
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-success"
+							data-dismiss="{{fecharModal}}"
+							ng-click="deletarTask(taskDelecao.id);">
+							<span class="glyphicon glyphicon-ok-sign"></span> Confirmar
+						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> Cancelar
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+		</div>
+
+
+	</div>
+</div>

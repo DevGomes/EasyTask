@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="/easy-task/resources/css/bootstrap.css" rel="stylesheet"
+	type="text/css" media="all">
+<link href="/easy-task/resources/css/animate.min.css" rel="stylesheet"
+	type="text/css" media="all">
+<link href="/easy-task/resources/css/styles.css" rel="stylesheet"
+	type="text/css" media="all">
+<script type="text/javascript" src="/easy-task/resources/js/jquery.js"></script>
+<script type="text/javascript" src="/easy-task/resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/easy-task/resources/js/angular.min.js"></script>
+<script type="text/javascript" src="/easy-task/resources/js/angular-route.min.js"></script>
+<script type="text/javascript" src="/easy-task/resources/js/app.js"></script>
+<script type="text/javascript" src="/easy-task/resources/js/appConfig.js"></script>
+<script type="text/javascript" src="/easy-task/resources/js/taskController.js"></script>
+<script type="text/javascript" src="/easy-task/resources/js/bootstrap-notify.js"></script>
+
+<title>Easy Task</title>
+</head>
+<body ng-app="task-app">
+
+	<header>
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand"> <span
+						class="glyphicon glyphicon-tasks"></span> Easy Task
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">Home<span class="sr-only"></span></a></li>
+						<li><a href="#taskList">Tarefas<span class="sr-only"></span></a></li>
+					</ul>
+					
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+	</header>
+
+	<section class="container" ng-view>
+		
+	</section>
+
+
+</body>
+</html>

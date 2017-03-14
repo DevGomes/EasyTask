@@ -1,0 +1,16 @@
+
+.concluido{
+  color: green;
+}
+
+.stand-by{
+	color: red;
+}
+
+.a-fazer {
+	color: SteelBlue;
+}
+
+.em-desenvolvimento {
+	color:orange;
+}
