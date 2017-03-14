@@ -1,5 +1,6 @@
 <div class="row">
-
+	
+	
 	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 		
 		<h1>Minhas Tasks</h1>
@@ -8,7 +9,7 @@
 		<div class="input-group input-group-md">
 			<input type="text" ng-model="pesquisa" class="form-control input-md"
 				id="search-church"
-				placeholder="Digite o título ou descrição da task que deseja pesquisar...">
+				placeholder="Digite o título, descrição ou código da task que deseja pesquisar...">
 			<div class="input-group-btn">
 
 				<button type="button" class="btn btn-search btn-info">
@@ -29,11 +30,16 @@
 				</div>
 			</div>
 		</div>
-
+	
 		<br /> <br />
-
-		<table class="table table-striped" ng-init="listarTasks();">
+		
+		<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11" ng-show="tasks.length == 0">
+			<p class="text-center">Você não possui tarefas. Clique em opções para criar uma nova tarefa.</p>
+		</div>
+		
+		<table class="table table-striped" ng-init="listarTasks();" ng-show="tasks.length > 0">
 			<thead>
+				<th>Código</th>
 				<th>Título</th>
 				<th>Descrição</th>
 				<th>Status</th>
@@ -41,6 +47,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="t in tasks | filter: pesquisa">
+					<td>{{t.id}}</td>
 					<td>{{t.titulo}}</td>
 					<td>{{t.descricao}}</td>
 					<td>
@@ -93,7 +100,6 @@
 				</tr>
 			</tbody>
 		</table>
-
 
 		<div class="modal fade" id="editCadModal" tabindex="-1" role="dialog"
 			aria-labelledby="edit" aria-hidden="true">

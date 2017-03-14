@@ -29,6 +29,7 @@ app.config(function($routeProvider){
 		templateUrl: "views/task/tasks.html"
 	}) // Task
 	.otherwise({
+		templateUrl: "views/home.html",
 		redirectTo: "/"
 	});
 	
